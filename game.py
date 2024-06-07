@@ -97,6 +97,9 @@ class SnakeGameAI:
         if self.is_near_tail():
             reward = reward - 5
 
+        if self.is_near_food():
+            reward = reward + 5
+
         # 5. update ui and clock
         self._update_ui()
         self.clock.tick(SPEED)
@@ -130,7 +133,13 @@ class SnakeGameAI:
             pt = self.head
         if ((pt.x is self.snake[-1].x +1) or (pt.x is self.snake[-1].x -1) or (pt.x == self.snake[-1].x ))  and ((pt.y is self.snake[-1].y +1) or (pt.y is self.snake[-1].y -1)):
             return True
-        
+        return False
+    
+    def is_near_food(self, pt=None):
+        if pt is None:
+            pt = self.head
+        if ((pt.x == self.food.x +1) or (pt.x == self.food.x -1) or (pt.x == self.food.x ))  and ((pt.y == self.food.y +1) or (pt.y == self.food.y -1) or pt.y == self.food.y):
+            return True
         return False
 
 
