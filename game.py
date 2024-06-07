@@ -133,8 +133,8 @@ class SnakeGameAI:
         if pt is None:
             pt = self.head
         tail = self.snake[-1]
-        if ((pt.x == tail.x + 20) or (pt.x == tail.x - 20) or (pt.x == tail.x)) and \
-            ((pt.y == tail.y + 20) or (pt.y == tail.y - 20) or (pt.y == tail.y)):
+        if ((pt.x == tail.x + BLOCK_SIZE) or (pt.x == tail.x - BLOCK_SIZE) or (pt.x == tail.x)) and \
+            ((pt.y == tail.y + BLOCK_SIZE) or (pt.y == tail.y - BLOCK_SIZE) or (pt.y == tail.y)):
             return True
         return False
 
@@ -142,8 +142,8 @@ class SnakeGameAI:
         if pt is None:
             pt = self.head
         food = self.food
-        if ((pt.x == food.x + 20) or (pt.x == food.x - 20) or (pt.x == food.x)) and \
-            ((pt.y == food.y + 20) or (pt.y == food.y - 20) or (pt.y == food.y)):
+        if ((pt.x == food.x + BLOCK_SIZE) or (pt.x == food.x - BLOCK_SIZE) or (pt.x == food.x)) and \
+            ((pt.y == food.y + BLOCK_SIZE) or (pt.y == food.y - BLOCK_SIZE) or (pt.y == food.y)):
             return True
         return False
 
