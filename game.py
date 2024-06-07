@@ -86,6 +86,10 @@ class SnakeGameAI:
             reward = -10
             return reward, game_over, self.score
 
+        # Amplify reward if eating food and not taking it about if about to eat
+        if self.is_near_food():
+            reward = reward + 5
+
         # 4. place new food or just move
         if self.head == self.food:
             self.score += 1
@@ -96,9 +100,6 @@ class SnakeGameAI:
         
         if self.is_near_tail():
             reward = reward - 5
-
-        if self.is_near_food():
-            reward = reward + 5
 
         # 5. update ui and clock
         self._update_ui()
@@ -131,16 +132,21 @@ class SnakeGameAI:
     def is_near_tail(self, pt=None):
         if pt is None:
             pt = self.head
-        if ((pt.x is self.snake[-1].x +1) or (pt.x is self.snake[-1].x -1) or (pt.x == self.snake[-1].x ))  and ((pt.y is self.snake[-1].y +1) or (pt.y is self.snake[-1].y -1)):
+        tail = self.snake[-1]
+        if ((pt.x == tail.x + 20) or (pt.x == tail.x - 20) or (pt.x == tail.x)) and \
+            ((pt.y == tail.y + 20) or (pt.y == tail.y - 20) or (pt.y == tail.y)):
             return True
         return False
-    
+
     def is_near_food(self, pt=None):
         if pt is None:
             pt = self.head
-        if ((pt.x == self.food.x +1) or (pt.x == self.food.x -1) or (pt.x == self.food.x ))  and ((pt.y == self.food.y +1) or (pt.y == self.food.y -1) or pt.y == self.food.y):
+        food = self.food
+        if ((pt.x == food.x + 20) or (pt.x == food.x - 20) or (pt.x == food.x)) and \
+            ((pt.y == food.y + 20) or (pt.y == food.y - 20) or (pt.y == food.y)):
             return True
         return False
+
 
 
     def _update_ui(self):
