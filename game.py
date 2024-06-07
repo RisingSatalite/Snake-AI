@@ -147,7 +147,14 @@ class SnakeGameAI:
             return True
         return False
 
-
+    def is_anywhere_near_food(self, pt=None):
+        if pt is None:
+            pt = self.head
+        food = self.food
+        if ((pt.x == food.x + 3 * BLOCK_SIZE) or (pt.x == food.x - 3 * BLOCK_SIZE) or (pt.x == food.x)) and \
+            ((pt.y == food.y + 3 * BLOCK_SIZE) or (pt.y == food.y - 3 * BLOCK_SIZE) or (pt.y == food.y)):
+            return True
+        return False
 
     def _update_ui(self):
         self.display.fill(BLACK)
