@@ -95,7 +95,7 @@ class SnakeGameAI:
             self.snake.pop()
         
         if self.is_near_tail():
-            reward -= 5
+            reward = reward - 5
 
         # 5. update ui and clock
         self._update_ui()
