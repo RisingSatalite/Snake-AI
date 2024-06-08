@@ -88,6 +88,8 @@ class SnakeGameAI:
 
         # Amplify reward if eating food and not taking it about if about to eat
         if self.is_near_food():
+            reward = reward + 10
+        if self.is_anywhere_near_food():
             reward = reward + 5
 
         # 4. place new food or just move
@@ -151,10 +153,8 @@ class SnakeGameAI:
         if pt is None:
             pt = self.head
         food = self.food
-        if ((pt.x == food.x + 3 * BLOCK_SIZE) or (pt.x == food.x - 3 * BLOCK_SIZE) or (pt.x == food.x)) and \
-            ((pt.y == food.y + 3 * BLOCK_SIZE) or (pt.y == food.y - 3 * BLOCK_SIZE) or (pt.y == food.y)):
-            return True
-        return False
+        distance = ((pt.x - food.x) ** 2 + (pt.y - food.y) ** 2) ** 0.5
+        return distance <= (3*BLOCK_SIZE)
 
     def _update_ui(self):
         self.display.fill(BLACK)
