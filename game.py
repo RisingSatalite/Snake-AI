@@ -78,7 +78,7 @@ class SnakeGameAI:
         game_over = False
         if self.is_self_collison():
             game_over = True
-            reward = -20
+            reward = -30
             return reward, game_over, self.score
         
         if self.is_collision() or self.frame_iteration > 100*len(self.snake):
@@ -91,7 +91,7 @@ class SnakeGameAI:
             reward = reward + 10
         elif self.is_anywhere_near_food():
             reward = reward + 5
-        elif self.is_anywhere_near_food(10):
+        elif self.is_anywhere_near_food_2(10):
             reward = reward + 1
 
         # 4. place new food or just move
