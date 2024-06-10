@@ -157,7 +157,7 @@ def train():
             total_score += score
             mean_score = total_score / agent.n_games
             plot_mean_scores.append(mean_score)
-            plot_5_games_scores.append((sum(mean_score[-5:])/5))
+            plot_5_games_scores.append(int(sum(plot_scores[-5:])/5))
             plot(plot_scores, plot_mean_scores, plot_5_games_scores)
 
 
