@@ -17,7 +17,7 @@ class Agent:
         self.epsilon = 0 # randomness
         self.gamma = 0.9 # discount rate
         self.memory = deque(maxlen=MAX_MEMORY) # popleft()
-        self.model = Linear_QNet(11, 256, 3)
+        self.model = Linear_QNet(15, 256, 3)
         self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma)
 
 
@@ -67,6 +67,11 @@ class Agent:
             game.food.y < game.head.y,  # food up
             game.food.y > game.head.y,  # food down
 
+            #Tail informations
+            tail.x < game.head.x,  # food left
+            tail.x > game.head.x,  # food right
+            tail.y < game.head.y,  # food up
+            tail.y > game.head.y,  # food down
             #Snake information
             #head.x,
             #head.y,
@@ -126,6 +131,7 @@ def train():
 
         # perform move and get new state
         reward, done, score = game.play_step(final_move)
+        print("Reward is " + str(reward))
         state_new = agent.get_state(game)
 
         # train short memory
