@@ -85,7 +85,7 @@ class SnakeGameAI:
             if(len(self.snake) == 3):
                 #penalty for sucide stragies
                 game_over = True
-                reward = -100
+                reward = -20
                 return reward, game_over, self.score
 
             game_over = True
