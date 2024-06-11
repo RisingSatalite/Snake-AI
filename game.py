@@ -101,8 +101,9 @@ class SnakeGameAI:
             reward = reward + 1
 
         #penatly for head being close to tail
-        if (self.is_near_tail() and not 3 == len(self.snake)):
-            reward = reward - 3
+        #if (self.is_near_tail()):
+            #if(3 != len(self.snake)):
+                #reward = reward - 3
 
         # 4. place new food or just move
         if self.head == self.food:
