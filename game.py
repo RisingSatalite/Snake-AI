@@ -82,6 +82,12 @@ class SnakeGameAI:
             return reward, game_over, self.score
         
         if self.is_collision() or self.frame_iteration > 100*len(self.snake):
+            if(len(self.snake) == 3):
+                #penalty for sucide stragies
+                game_over = True
+                reward = -100
+                return reward, game_over, self.score
+
             game_over = True
             reward = -10
             return reward, game_over, self.score

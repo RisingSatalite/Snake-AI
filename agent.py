@@ -17,7 +17,7 @@ class Agent:
         self.epsilon = 0 # randomness
         self.gamma = 0.9 # discount rate
         self.memory = deque(maxlen=MAX_MEMORY) # popleft()
-        self.model = Linear_QNet(15, 256, 3)
+        self.model = Linear_QNet(20, 256, 3)
         self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma)
 
 
@@ -73,11 +73,11 @@ class Agent:
             tail.y < game.head.y,  # food up
             tail.y > game.head.y,  # food down
             #Snake information
-            #head.x,
-            #head.y,
-            #snake_lenght
-            #tail.x,
-            #tail.y
+            head.x,
+            head.y,
+            snake_lenght,
+            tail.x,
+            tail.y
             ]
 
         return np.array(state, dtype=int)
