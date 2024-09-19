@@ -93,12 +93,13 @@ class SnakeGameAI:
             return reward, game_over, self.score
 
         # Amplify reward if eating food and not taking it about if about to eat
-        if self.is_anywhere_near_food_2(2):
-            reward = reward + 10
-        elif self.is_anywhere_near_food():
-            reward = reward + 5
-        elif self.is_anywhere_near_food_2(10):
-            reward = reward + 2
+        #if self.is_anywhere_near_food_2(2):
+            #reward = reward + 10
+        #elif self.is_anywhere_near_food():
+            #reward = reward + 5
+        #elif self.is_anywhere_near_food_2(10):
+            #reward = reward + 2
+        reward -= self.distance_to_food()
 
         if(self.is_near_wall()):
             reward -= 1
@@ -203,6 +204,13 @@ class SnakeGameAI:
         food = self.food
         distance = ((pt.x - food.x) ** 2 + (pt.y - food.y) ** 2) ** 0.5
         return distance <= (lenght*BLOCK_SIZE)
+    
+    def distance_to_food(self, pt=None):
+        if pt is None:
+            pt = self.head
+        food = self.food
+        distance = ((pt.x - food.x) ** 2 + (pt.y - food.y) ** 2) ** 0.5
+        return distance
 
     def _update_ui(self):
         self.display.fill(BLACK)
