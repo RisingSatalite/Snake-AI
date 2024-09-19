@@ -85,11 +85,11 @@ class SnakeGameAI:
             if(len(self.snake) == 3):
                 #penalty for sucide stragies
                 game_over = True
-                reward = -20
+                reward = -30
                 return reward, game_over, self.score
 
             game_over = True
-            reward = -10
+            reward = -20
             return reward, game_over, self.score
 
         # Amplify reward if eating food and not taking it about if about to eat
@@ -209,7 +209,7 @@ class SnakeGameAI:
         if pt is None:
             pt = self.head
         food = self.food
-        distance = ((pt.x - food.x) ** 2 + (pt.y - food.y) ** 2) ** 0.5
+        distance = (((pt.x - food.x) ** 2 + (pt.y - food.y) ** 2) ** 0.5) ** 0.5
         return distance
 
     def _update_ui(self):
