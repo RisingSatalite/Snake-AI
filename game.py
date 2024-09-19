@@ -98,8 +98,10 @@ class SnakeGameAI:
         elif self.is_anywhere_near_food():
             reward = reward + 5
         elif self.is_anywhere_near_food_2(10):
-            reward = reward + 1
+            reward = reward + 2
 
+        if(self.is_near_wall()):
+            reward -= 1
         #penatly for head being close to tail
         #if (self.is_near_tail()):
             #if(3 != len(self.snake)):
@@ -152,6 +154,22 @@ class SnakeGameAI:
             ((pt.y == tail.y + BLOCK_SIZE) or (pt.y == tail.y - BLOCK_SIZE) or (pt.y == tail.y)):
             return True
         return False
+    
+    def is_near_wall(self, distance=BLOCK_SIZE):
+        # Check proximity to left wall
+        if self.head.x <= distance:
+            return True
+        # Check proximity to right wall
+        if self.head.x >= (self.w - distance):
+            return True
+        # Check proximity to top wall
+        if self.head.y <= distance:
+            return True
+        # Check proximity to bottom wall
+        if self.head.y >= (self.h - distance):
+            return True
+        return False
+
 
     def is_near_food(self, pt=None):
         if pt is None:
