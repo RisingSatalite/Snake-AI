@@ -1,3 +1,4 @@
 dist/
 .vscode/settings.json
 __pycache__/game.cpython-310.pyc
+model/model.pth

@@ -5,6 +5,12 @@ from collections import deque
 from game import SnakeGameAI, Direction, Point
 from model import Linear_QNet, QTrainer
 from helper import plot
+import pickle
+
+#import os
+#os.chdir('c:\\Users\\Saiha\\OneDrive\\Documents\\snake-ai-pytorch-main')
+
+#pyinstaller --onefile --noconsole agent.py
 
 MAX_MEMORY = 100_000
 BATCH_SIZE = 1000
@@ -17,15 +23,12 @@ class Agent:
         self.epsilon = 0 # randomness
         self.gamma = 0.9 # discount rate
         self.memory = deque(maxlen=MAX_MEMORY) # popleft()
-        self.model = Linear_QNet(20, 256, 3)
+        self.model = Linear_QNet(11, 256, 3)
         self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma)
 
 
     def get_state(self, game):
         head = game.snake[0]
-        snake_lenght = len(game.snake)
-        tail = game.snake[-1]
-
         point_l = Point(head.x - 20, head.y)
         point_r = Point(head.x + 20, head.y)
         point_u = Point(head.x, head.y - 20)
@@ -65,19 +68,7 @@ class Agent:
             game.food.x < game.head.x,  # food left
             game.food.x > game.head.x,  # food right
             game.food.y < game.head.y,  # food up
-            game.food.y > game.head.y,  # food down
-
-            #Tail informations
-            tail.x < game.head.x,  # food left
-            tail.x > game.head.x,  # food right
-            tail.y < game.head.y,  # food up
-            tail.y > game.head.y,  # food down
-            #Snake information
-            head.x,
-            head.y,
-            snake_lenght,
-            tail.x,
-            tail.y
+            game.food.y > game.head.y  # food down
             ]
 
         return np.array(state, dtype=int)
@@ -114,11 +105,9 @@ class Agent:
 
         return final_move
 
-
 def train():
     plot_scores = []
     plot_mean_scores = []
-    plot_5_games_scores = []
     total_score = 0
     record = 0
     agent = Agent()
@@ -132,7 +121,6 @@ def train():
 
         # perform move and get new state
         reward, done, score = game.play_step(final_move)
-        print("Reward is " + str(reward))
         state_new = agent.get_state(game)
 
         # train short memory
@@ -157,8 +145,7 @@ def train():
             total_score += score
             mean_score = total_score / agent.n_games
             plot_mean_scores.append(mean_score)
-            plot_5_games_scores.append(int(sum(plot_scores[-5:])/5))
-            plot(plot_scores, plot_mean_scores, plot_5_games_scores)
+            plot(plot_scores, plot_mean_scores)
 
 
 if __name__ == '__main__':
